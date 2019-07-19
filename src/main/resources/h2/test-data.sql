@@ -1,10 +1,5 @@
-CREATE TABLE `Spittle` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `message` varchar(300),
-  `time` datetime DEFAULT CURRENT_TIMESTAMP ,
-  `latitude` double precision,
-  `longitude` double precision,
-  PRIMARY KEY (`id`)
-);
+insert into Spitter values ('1', 'ynding', '111111', 'yanan', 'ding', '913690560@qq.com', null);
+insert into Spitter values (null, 'sj-wany', '111111', 'yan', 'wang', '913690560@qq.com', null);
+insert into Spitter values (null, 'admin', 'password', 'admin', 'admin', '913690560@qq.com', null);
 
 insert into Spittle values(null,'message',null,33,44);
