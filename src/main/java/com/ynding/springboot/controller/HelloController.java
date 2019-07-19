@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -22,8 +23,9 @@ public class HelloController {
 
     @ApiOperation(value="hello", produces = "application/json")
     @GetMapping("/hello")
-    public Model hello(Model m){
-    	 m.addAttribute("now", DateFormat.getDateTimeInstance().format(new Date()));
+    public ModelAndView hello(ModelAndView m){
+    	 m.addObject("now", DateFormat.getDateTimeInstance().format(new Date()));
+    	 m.setViewName("hello");
     	return m;
     }
  

@@ -29,8 +29,8 @@ public class Swagger2Config {
                 .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
 //                .paths(PathSelectors.any())
                 .build()
-                .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts())
+//                .securitySchemes(securitySchemes())
+//                .securityContexts(securityContexts())
                 ;
     }
 
