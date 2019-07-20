@@ -30,6 +30,11 @@ spring:
     #开发配置为false,避免修改模板还要重启服务器
     cache: false
     prefix: /WEB-INF/templates/
+#  redis:
+#    database: 5
+#    host: ${REDIS_HOST:localhost}
+#    port: ${REDIS_PORT:6379}
+#    password: ${REDIS_PASSWORD:}
 logging:
   level: debug
 
