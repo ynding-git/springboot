@@ -1,4 +1,4 @@
-package com.ynding.springboot.o.dto;
+package com.ynding.springboot.web.o.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class User implements Serializable {
+public class UserDto implements Serializable {
     private static final long serialVersionUID = -1L;
 
     private String username;

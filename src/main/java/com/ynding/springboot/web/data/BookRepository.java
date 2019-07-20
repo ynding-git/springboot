@@ -1,4 +1,4 @@
-package com.ynding.springboot.data;
+package com.ynding.springboot.web.data;
 
 import java.util.List;
 

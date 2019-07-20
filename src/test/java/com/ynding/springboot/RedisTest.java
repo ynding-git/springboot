@@ -1,6 +1,6 @@
 package com.ynding.springboot;
 
-import com.ynding.springboot.o.dto.User;
+import com.ynding.springboot.web.o.dto.UserDto;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,16 +22,16 @@ public class RedisTest {
     public void test() throws Exception {
 
         // 保存对象
-        User user = new User("超人", 20);
-        redisTemplate.opsForValue().set(user.getUsername(), user);
+        UserDto userDto = new UserDto("超人", 20);
+        redisTemplate.opsForValue().set(userDto.getUsername(), userDto);
 
-        user = new User("蝙蝠侠", 30);
-        redisTemplate.opsForValue().set(user.getUsername(), user);
+        userDto = new UserDto("蝙蝠侠", 30);
+        redisTemplate.opsForValue().set(userDto.getUsername(), userDto);
 
-        user = new User("蜘蛛侠", 40);
-        redisTemplate.opsForValue().set(user.getUsername(), user);
+        userDto = new UserDto("蜘蛛侠", 40);
+        redisTemplate.opsForValue().set(userDto.getUsername(), userDto);
 
-        Assert.assertEquals(new User("超人", 20), redisTemplate.opsForValue().get("超人"));
+        Assert.assertEquals(new UserDto("超人", 20), redisTemplate.opsForValue().get("超人"));
 //        Assert.assertEquals(30, redisTemplate.opsForValue().get("蝙蝠侠").getAge().longValue());
 //        Assert.assertEquals(40, redisTemplate.opsForValue().get("蜘蛛侠").getAge().longValue());
 

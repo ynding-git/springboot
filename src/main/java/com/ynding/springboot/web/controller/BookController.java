@@ -1,6 +1,6 @@
-package com.ynding.springboot.controller;
+package com.ynding.springboot.web.controller;
 
-import com.ynding.springboot.data.BookRepository;
+import com.ynding.springboot.web.data.BookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
