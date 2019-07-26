@@ -1,5 +1,6 @@
 package com.ynding.springboot.web.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Slf4j
 @RestController
+@Api(value="Hello",tags={"首页控制器"})
 public class HelloController {
 
     @ApiOperation(value="", produces = "application/json")
