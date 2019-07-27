@@ -1,6 +1,5 @@
 package com.ynding.springboot.web.controller;
 
-import com.ynding.springboot.entity.Taco;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * 书
  * @author ynding
  * @version 2019/06/14
  *

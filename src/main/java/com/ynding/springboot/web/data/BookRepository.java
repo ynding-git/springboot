@@ -1,13 +1,12 @@
 package com.ynding.springboot.web.data;
 
-import java.util.List;
-
+import com.ynding.springboot.entity.Book;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ynding.springboot.entity.Book;
+import java.util.List;
 
 /**
  * BOOK
