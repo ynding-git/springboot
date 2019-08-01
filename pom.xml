@@ -26,11 +26,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!--security-->
+		<!--websocket-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
+		<!--security-->
+		<!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>-->
 		<!-- AOP -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
