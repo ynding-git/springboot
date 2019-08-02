@@ -1,3 +1,8 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /springboot
+
 spring:
   profiles:
       active: dev
@@ -26,16 +31,22 @@ spring:
 #      settings:
 #        trace: false
 #        web-allow-others: false
+#  mvc:
+#    static-path-pattern: /static/**
+#  resources:
+#    #静态资源位置
+#    static-locations: classpath:/static/
+
   thymeleaf:
     #开发配置为false,避免修改模板还要重启服务器
     cache: false
-    prefix: /WEB-INF/templates/
+    #prefix: /WEB-INF/templates/
 #  redis:
 #    database: 5
 #    host: ${REDIS_HOST:localhost}
 #    port: ${REDIS_PORT:6379}
 #    password: ${REDIS_PASSWORD:}
-logging:
-  level: debug
+#logging:
+#  level: debug
 
 
