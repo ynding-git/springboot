@@ -4,8 +4,8 @@ server:
     context-path: /springboot
 
 spring:
-  profiles:
-      active: dev
+#  profiles:
+#      active: dev
   datasource:
     #初始化数据结构/数据
     schema: classpath:h2/schema.sql
@@ -41,12 +41,15 @@ spring:
     #开发配置为false,避免修改模板还要重启服务器
     cache: false
     #prefix: /WEB-INF/templates/
+  mvc:
+    favicon:
+      enabled: false
 #  redis:
 #    database: 5
 #    host: ${REDIS_HOST:localhost}
 #    port: ${REDIS_PORT:6379}
 #    password: ${REDIS_PASSWORD:}
-#logging:
-#  level: debug
 
-
+logging:
+  level:
+    com.xxx: debug

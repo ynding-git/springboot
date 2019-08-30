@@ -16,9 +16,10 @@ public class TestURLWrite {
 			BufferedReader br = null;
 			BufferedWriter bw = null;
 			
-			URL url2 = new URL("https://s2.mogucdn.com/mlcdn/c45406/170422_678did070ec6le09de3g15c1l7l36_750x500.jpg");
+			URL url2 = new URL("http://chuantu.xyz/t6/702/1565918522x3752237043.jpg");
 			// 打开和URL之间的连接
 			URLConnection connection2 = url2.openConnection();
+			connection2.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
 			
 			File file = new File("D://mag.jpg");
 			br = new BufferedReader(new InputStreamReader(connection2.getInputStream(), "utf-8"));

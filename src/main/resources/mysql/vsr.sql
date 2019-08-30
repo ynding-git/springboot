@@ -1,8 +1,73 @@
-insert into Spitter values ('1', 'ynding', '111111', 'yanan', 'ding', '913690560@qq.com', null);
-insert into Spitter values (null, 'sj-wany', '111111', 'yan', 'wang', '913690560@qq.com', null);
-insert into Spitter values (null, 'admin', 'password', 'admin', 'admin', '913690560@qq.com', null);
-insert into Spittle values(null,'message',null,33,44);
+/*
+Navicat MySQL Data Transfer
+Source Server         : MyCon
+Source Server Version : 50717
+Source Host           : localhost:3306
+Source Database       : vhr
+Target Server Type    : MYSQL
+Target Server Version : 50717
+File Encoding         : 65001
+Date: 2018-02-05 11:25:15
+*/
+CREATE DATABASE `vhr` DEFAULT CHARACTER SET utf8;
 
+USE `vhr`;
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for adjustsalary
+-- ----------------------------
+DROP TABLE IF EXISTS `adjustsalary`;
+CREATE TABLE `adjustsalary` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `eid` int(11) DEFAULT NULL,
+  `asDate` date DEFAULT NULL COMMENT '调薪日期',
+  `beforeSalary` int(11) DEFAULT NULL COMMENT '调前薪资',
+  `afterSalary` int(11) DEFAULT NULL COMMENT '调后薪资',
+  `reason` varchar(255) DEFAULT NULL COMMENT '调薪原因',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `pid` (`eid`),
+  CONSTRAINT `adjustsalary_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of adjustsalary
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for appraise
+-- ----------------------------
+DROP TABLE IF EXISTS `appraise`;
+CREATE TABLE `appraise` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `eid` int(11) DEFAULT NULL,
+  `appDate` date DEFAULT NULL COMMENT '考评日期',
+  `appResult` varchar(32) DEFAULT NULL COMMENT '考评结果',
+  `appContent` varchar(255) DEFAULT NULL COMMENT '考评内容',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `pid` (`eid`),
+  CONSTRAINT `appraise_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of appraise
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for department
+-- ----------------------------
+DROP TABLE IF EXISTS `department`;
+CREATE TABLE `department` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL COMMENT '部门名称',
+  `parentId` int(11) DEFAULT NULL,
+  `depPath` varchar(255) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT '1',
+  `isParent` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of department
@@ -22,111 +87,51 @@ INSERT INTO `department` VALUES ('91', '技术部', '5', '.1.4.5.91', '1', '0');
 INSERT INTO `department` VALUES ('92', '运维部', '5', '.1.4.5.92', '1', '0');
 
 -- ----------------------------
--- Records of joblevel
+-- Table structure for employee
 -- ----------------------------
-INSERT INTO `joblevel` VALUES ('9', '教授', '正高级', '2018-01-11 21:19:14', '1');
-INSERT INTO `joblevel` VALUES ('10', '副教授', '副高级', '2018-01-11 21:19:20', '1');
-INSERT INTO `joblevel` VALUES ('12', '助教', '初级', '2018-01-11 21:35:39', '1');
-INSERT INTO `joblevel` VALUES ('13', '讲师', '中级', '2018-01-11 22:42:12', '1');
-INSERT INTO `joblevel` VALUES ('14', '初级工程师', '初级', '2018-01-14 16:18:50', '1');
-INSERT INTO `joblevel` VALUES ('15', '中级工程师', '中级', '2018-01-14 16:19:00', '1');
-INSERT INTO `joblevel` VALUES ('16', '高级工程师', '副高级', '2018-01-14 16:19:14', '1');
-INSERT INTO `joblevel` VALUES ('17', '骨灰级工程师', '正高级', '2018-01-14 16:19:24', '1');
-
--- ----------------------------
--- Records of position
--- ----------------------------
-INSERT INTO `position` VALUES ('29', '技术总监', '2018-01-11 21:13:42', '1');
-INSERT INTO `position` VALUES ('30', '运营总监', '2018-01-11 21:13:48', '1');
-INSERT INTO `position` VALUES ('31', '市场总监', '2018-01-11 21:13:56', '1');
-INSERT INTO `position` VALUES ('32', '总经理', '2018-01-11 21:35:07', '1');
-INSERT INTO `position` VALUES ('33', '研发工程师', '2018-01-14 16:07:11', '1');
-INSERT INTO `position` VALUES ('34', '运维工程师', '2018-01-14 16:11:41', '1');
-
--- ----------------------------
--- Records of nation
--- ----------------------------
-INSERT INTO `nation` VALUES ('1', '汉族');
-INSERT INTO `nation` VALUES ('2', '蒙古族');
-INSERT INTO `nation` VALUES ('3', '回族');
-INSERT INTO `nation` VALUES ('4', '藏族');
-INSERT INTO `nation` VALUES ('5', '维吾尔族');
-INSERT INTO `nation` VALUES ('6', '苗族');
-INSERT INTO `nation` VALUES ('7', '彝族');
-INSERT INTO `nation` VALUES ('8', '壮族');
-INSERT INTO `nation` VALUES ('9', '布依族');
-INSERT INTO `nation` VALUES ('10', '朝鲜族');
-INSERT INTO `nation` VALUES ('11', '满族');
-INSERT INTO `nation` VALUES ('12', '侗族');
-INSERT INTO `nation` VALUES ('13', '瑶族');
-INSERT INTO `nation` VALUES ('14', '白族');
-INSERT INTO `nation` VALUES ('15', '土家族');
-INSERT INTO `nation` VALUES ('16', '哈尼族');
-INSERT INTO `nation` VALUES ('17', '哈萨克族');
-INSERT INTO `nation` VALUES ('18', '傣族');
-INSERT INTO `nation` VALUES ('19', '黎族');
-INSERT INTO `nation` VALUES ('20', '傈僳族');
-INSERT INTO `nation` VALUES ('21', '佤族');
-INSERT INTO `nation` VALUES ('22', '畲族');
-INSERT INTO `nation` VALUES ('23', '高山族');
-INSERT INTO `nation` VALUES ('24', '拉祜族');
-INSERT INTO `nation` VALUES ('25', '水族');
-INSERT INTO `nation` VALUES ('26', '东乡族');
-INSERT INTO `nation` VALUES ('27', '纳西族');
-INSERT INTO `nation` VALUES ('28', '景颇族');
-INSERT INTO `nation` VALUES ('29', '柯尔克孜族');
-INSERT INTO `nation` VALUES ('30', '土族');
-INSERT INTO `nation` VALUES ('31', '达斡尔族');
-INSERT INTO `nation` VALUES ('32', '仫佬族');
-INSERT INTO `nation` VALUES ('33', '羌族');
-INSERT INTO `nation` VALUES ('34', '布朗族');
-INSERT INTO `nation` VALUES ('35', '撒拉族');
-INSERT INTO `nation` VALUES ('36', '毛难族');
-INSERT INTO `nation` VALUES ('37', '仡佬族');
-INSERT INTO `nation` VALUES ('38', '锡伯族');
-INSERT INTO `nation` VALUES ('39', '阿昌族');
-INSERT INTO `nation` VALUES ('40', '普米族');
-INSERT INTO `nation` VALUES ('41', '塔吉克族');
-INSERT INTO `nation` VALUES ('42', '怒族');
-INSERT INTO `nation` VALUES ('43', '乌孜别克族');
-INSERT INTO `nation` VALUES ('44', '俄罗斯族');
-INSERT INTO `nation` VALUES ('45', '鄂温克族');
-INSERT INTO `nation` VALUES ('46', '崩龙族');
-INSERT INTO `nation` VALUES ('47', '保安族');
-INSERT INTO `nation` VALUES ('48', '裕固族');
-INSERT INTO `nation` VALUES ('49', '京族');
-INSERT INTO `nation` VALUES ('50', '塔塔尔族');
-INSERT INTO `nation` VALUES ('51', '独龙族');
-INSERT INTO `nation` VALUES ('52', '鄂伦春族');
-INSERT INTO `nation` VALUES ('53', '赫哲族');
-INSERT INTO `nation` VALUES ('54', '门巴族');
-INSERT INTO `nation` VALUES ('55', '珞巴族');
-INSERT INTO `nation` VALUES ('56', '基诺族');
-
--- ----------------------------
--- Records of politicsstatus
--- ----------------------------
-INSERT INTO `politicsstatus` VALUES ('1', '中共党员');
-INSERT INTO `politicsstatus` VALUES ('2', '中共预备党员');
-INSERT INTO `politicsstatus` VALUES ('3', '共青团员');
-INSERT INTO `politicsstatus` VALUES ('4', '民革党员');
-INSERT INTO `politicsstatus` VALUES ('5', '民盟盟员');
-INSERT INTO `politicsstatus` VALUES ('6', '民建会员');
-INSERT INTO `politicsstatus` VALUES ('7', '民进会员');
-INSERT INTO `politicsstatus` VALUES ('8', '农工党党员');
-INSERT INTO `politicsstatus` VALUES ('9', '致公党党员');
-INSERT INTO `politicsstatus` VALUES ('10', '九三学社社员');
-INSERT INTO `politicsstatus` VALUES ('11', '台盟盟员');
-INSERT INTO `politicsstatus` VALUES ('12', '无党派民主人士');
-INSERT INTO `politicsstatus` VALUES ('13', '普通公民');
-
--- ----------------------------
--- Records of salary
--- ----------------------------
-INSERT INTO `salary` VALUES ('9', '9000', '4000', '800', '500', null, '2000', '0.07', '2018-01-24 00:00:00', '2000', '0.07', '2000', '0.07', '市场部工资账套');
-INSERT INTO `salary` VALUES ('10', '2000', '2000', '400', '1000', null, '2000', '0.07', '2018-01-01 00:00:00', '2000', '0.07', '2000', '0.07', '人事部工资账套');
-INSERT INTO `salary` VALUES ('13', '10000', '3000', '500', '500', null, '4000', '0.07', '2018-01-25 00:00:00', '4000', '0.07', '4000', '0.07', '运维部工资账套');
-
+DROP TABLE IF EXISTS `employee`;
+CREATE TABLE `employee` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '员工编号',
+  `name` varchar(10) DEFAULT NULL COMMENT '员工姓名',
+  `gender` char(4) DEFAULT NULL COMMENT '性别',
+  `birthday` date DEFAULT NULL COMMENT '出生日期',
+  `idCard` char(18) DEFAULT NULL COMMENT '身份证号',
+  `wedlock` enum('已婚','未婚','离异') DEFAULT NULL COMMENT '婚姻状况',
+  `nationId` int(8) DEFAULT NULL COMMENT '民族',
+  `nativePlace` varchar(20) DEFAULT NULL COMMENT '籍贯',
+  `politicId` int(8) DEFAULT NULL COMMENT '政治面貌',
+  `email` varchar(20) DEFAULT NULL COMMENT '邮箱',
+  `phone` varchar(11) DEFAULT NULL COMMENT '电话号码',
+  `address` varchar(64) DEFAULT NULL COMMENT '联系地址',
+  `departmentId` int(11) DEFAULT NULL COMMENT '所属部门',
+  `jobLevelId` int(11) DEFAULT NULL COMMENT '职称ID',
+  `posId` int(11) DEFAULT NULL COMMENT '职位ID',
+  `engageForm` varchar(8) DEFAULT NULL COMMENT '聘用形式',
+  `tiptopDegree` enum('博士','硕士','本科','大专','高中','初中','小学','其他') DEFAULT NULL COMMENT '最高学历',
+  `specialty` varchar(32) DEFAULT NULL COMMENT '所属专业',
+  `school` varchar(32) DEFAULT NULL COMMENT '毕业院校',
+  `beginDate` date DEFAULT NULL COMMENT '入职日期',
+  `workState` enum('在职','离职') DEFAULT '在职' COMMENT '在职状态',
+  `workID` char(8) DEFAULT NULL COMMENT '工号',
+  `contractTerm` double DEFAULT NULL COMMENT '合同期限',
+  `conversionTime` date DEFAULT NULL COMMENT '转正日期',
+  `notWorkDate` date DEFAULT NULL COMMENT '离职日期',
+  `beginContract` date DEFAULT NULL COMMENT '合同起始日期',
+  `endContract` date DEFAULT NULL COMMENT '合同终止日期',
+  `workAge` int(11) DEFAULT NULL COMMENT '工龄',
+  PRIMARY KEY (`id`),
+  KEY `departmentId` (`departmentId`),
+  KEY `jobId` (`jobLevelId`),
+  KEY `dutyId` (`posId`),
+  KEY `nationId` (`nationId`),
+  KEY `politicId` (`politicId`),
+  KEY `workID_key` (`workID`),
+  CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`departmentId`) REFERENCES `department` (`id`),
+  CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`jobLevelId`) REFERENCES `joblevel` (`id`),
+  CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`posId`) REFERENCES `position` (`id`),
+  CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`nationId`) REFERENCES `nation` (`id`),
+  CONSTRAINT `employee_ibfk_5` FOREIGN KEY (`politicId`) REFERENCES `politicsstatus` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1519 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of employee
@@ -329,6 +334,82 @@ INSERT INTO `employee` VALUES ('1517', '林伯渠', '男', '2018-01-01', '610122
 INSERT INTO `employee` VALUES ('1518', '1', '男', '2018-01-01', '610122199909091234', '已婚', '1', '1', '1', '584991843@qq.com', '1', '1', '8', '9', '29', '劳动合同', '大专', '1', '1', '2018-01-31', '在职', '00000047', '0', null, null, '2018-01-31', '2018-01-31', null);
 
 -- ----------------------------
+-- Table structure for employeeec
+-- ----------------------------
+DROP TABLE IF EXISTS `employeeec`;
+CREATE TABLE `employeeec` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `eid` int(11) DEFAULT NULL COMMENT '员工编号',
+  `ecDate` date DEFAULT NULL COMMENT '奖罚日期',
+  `ecReason` varchar(255) DEFAULT NULL COMMENT '奖罚原因',
+  `ecPoint` int(11) DEFAULT NULL COMMENT '奖罚分',
+  `ecType` int(11) DEFAULT NULL COMMENT '奖罚类别，0：奖，1：罚',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `pid` (`eid`),
+  CONSTRAINT `employeeec_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of employeeec
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for employeeremove
+-- ----------------------------
+DROP TABLE IF EXISTS `employeeremove`;
+CREATE TABLE `employeeremove` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `eid` int(11) DEFAULT NULL,
+  `afterDepId` int(11) DEFAULT NULL COMMENT '调动后部门',
+  `afterJobId` int(11) DEFAULT NULL COMMENT '调动后职位',
+  `removeDate` date DEFAULT NULL COMMENT '调动日期',
+  `reason` varchar(255) DEFAULT NULL COMMENT '调动原因',
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `pid` (`eid`),
+  CONSTRAINT `employeeremove_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of employeeremove
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for employeetrain
+-- ----------------------------
+DROP TABLE IF EXISTS `employeetrain`;
+CREATE TABLE `employeetrain` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `eid` int(11) DEFAULT NULL COMMENT '员工编号',
+  `trainDate` date DEFAULT NULL COMMENT '培训日期',
+  `trainContent` varchar(255) DEFAULT NULL COMMENT '培训内容',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `pid` (`eid`),
+  CONSTRAINT `employeetrain_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of employeetrain
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for empsalary
+-- ----------------------------
+DROP TABLE IF EXISTS `empsalary`;
+CREATE TABLE `empsalary` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `eid` int(11) DEFAULT NULL,
+  `sid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `eid` (`eid`),
+  KEY `empsalary_ibfk_2` (`sid`),
+  CONSTRAINT `empsalary_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`),
+  CONSTRAINT `empsalary_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `salary` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Records of empsalary
 -- ----------------------------
 INSERT INTO `empsalary` VALUES ('6', '4', '10');
@@ -343,6 +424,24 @@ INSERT INTO `empsalary` VALUES ('15', '9', '10');
 INSERT INTO `empsalary` VALUES ('16', '10', '13');
 
 -- ----------------------------
+-- Table structure for hr
+-- ----------------------------
+DROP TABLE IF EXISTS `hr`;
+CREATE TABLE `hr` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'hrID',
+  `name` varchar(32) DEFAULT NULL COMMENT '姓名',
+  `phone` char(11) DEFAULT NULL COMMENT '手机号码',
+  `telephone` varchar(16) DEFAULT NULL COMMENT '住宅电话',
+  `address` varchar(64) DEFAULT NULL COMMENT '联系地址',
+  `enabled` tinyint(1) DEFAULT '1',
+  `username` varchar(255) DEFAULT NULL COMMENT '用户名',
+  `password` varchar(255) DEFAULT NULL COMMENT '密码',
+  `userface` varchar(255) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Records of hr
 -- ----------------------------
 INSERT INTO `hr` VALUES ('3', '系统管理员', '18568887789', '029-82881234', '深圳南山', '1', 'admin', '$2a$10$ySG2lkvjFHY5O0./CPIE1OI8VJsuKYEzOYzqIa7AJR6sEgSzUFOAm', 'http://bpic.588ku.com/element_pic/01/40/00/64573ce2edc0728.jpg', null);
@@ -352,16 +451,19 @@ INSERT INTO `hr` VALUES ('11', '柳宗元', '18568123377', '029-82111333', '广�
 INSERT INTO `hr` VALUES ('12', '曾巩', '18568128888', '029-82111222', '广州越秀', '1', 'zenggong', '$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517070040185&di=be0375e0c3db6c311b837b28c208f318&imgtype=0&src=http%3A%2F%2Fimg2.soyoung.com%2Fpost%2F20150213%2F6%2F20150213141918532.jpg', null);
 
 -- ----------------------------
--- Records of role
+-- Table structure for hr_role
 -- ----------------------------
-INSERT INTO `role` VALUES ('1', 'ROLE_manager', '部门经理');
-INSERT INTO `role` VALUES ('2', 'ROLE_personnel', '人事专员');
-INSERT INTO `role` VALUES ('3', 'ROLE_recruiter', '招聘主管');
-INSERT INTO `role` VALUES ('4', 'ROLE_train', '培训主管');
-INSERT INTO `role` VALUES ('5', 'ROLE_performance', '薪酬绩效主管');
-INSERT INTO `role` VALUES ('6', 'ROLE_admin', '系统管理员');
-INSERT INTO `role` VALUES ('13', 'ROLE_test2', '测试角色2');
-INSERT INTO `role` VALUES ('14', 'ROLE_test1', '测试角色1');
+DROP TABLE IF EXISTS `hr_role`;
+CREATE TABLE `hr_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `hrid` int(11) DEFAULT NULL,
+  `rid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`),
+  KEY `hr_role_ibfk_1` (`hrid`),
+  CONSTRAINT `hr_role_ibfk_1` FOREIGN KEY (`hrid`) REFERENCES `hr` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `hr_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of hr_role
@@ -378,6 +480,51 @@ INSERT INTO `hr_role` VALUES ('45', '11', '4');
 INSERT INTO `hr_role` VALUES ('46', '11', '5');
 INSERT INTO `hr_role` VALUES ('48', '10', '3');
 INSERT INTO `hr_role` VALUES ('49', '10', '4');
+
+-- ----------------------------
+-- Table structure for joblevel
+-- ----------------------------
+DROP TABLE IF EXISTS `joblevel`;
+CREATE TABLE `joblevel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL COMMENT '职称名称',
+  `titleLevel` enum('正高级','副高级','中级','初级','员级') DEFAULT NULL,
+  `createDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `enabled` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of joblevel
+-- ----------------------------
+INSERT INTO `joblevel` VALUES ('9', '教授', '正高级', '2018-01-11 21:19:14', '1');
+INSERT INTO `joblevel` VALUES ('10', '副教授', '副高级', '2018-01-11 21:19:20', '1');
+INSERT INTO `joblevel` VALUES ('12', '助教', '初级', '2018-01-11 21:35:39', '1');
+INSERT INTO `joblevel` VALUES ('13', '讲师', '中级', '2018-01-11 22:42:12', '1');
+INSERT INTO `joblevel` VALUES ('14', '初级工程师', '初级', '2018-01-14 16:18:50', '1');
+INSERT INTO `joblevel` VALUES ('15', '中级工程师', '中级', '2018-01-14 16:19:00', '1');
+INSERT INTO `joblevel` VALUES ('16', '高级工程师', '副高级', '2018-01-14 16:19:14', '1');
+INSERT INTO `joblevel` VALUES ('17', '骨灰级工程师', '正高级', '2018-01-14 16:19:24', '1');
+
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(64) DEFAULT NULL,
+  `path` varchar(64) DEFAULT NULL,
+  `component` varchar(64) DEFAULT NULL,
+  `name` varchar(64) DEFAULT NULL,
+  `iconCls` varchar(64) DEFAULT NULL,
+  `keepAlive` tinyint(1) DEFAULT NULL,
+  `requireAuth` tinyint(1) DEFAULT NULL,
+  `parentId` int(11) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `parentId` (`parentId`),
+  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -411,6 +558,89 @@ INSERT INTO `menu` VALUES ('26', '/system/hr/**', '/sys/hr', 'SysHr', '操作员
 INSERT INTO `menu` VALUES ('27', '/system/data/**', '/sys/data', 'SysData', '备份恢复数据库', null, null, '1', '6', '1');
 INSERT INTO `menu` VALUES ('28', '/system/init/**', '/sys/init', 'SysInit', '初始化数据库', null, null, '1', '6', '1');
 
+-- ----------------------------
+-- Table structure for menu_role
+-- ----------------------------
+DROP TABLE IF EXISTS `menu_role`;
+CREATE TABLE `menu_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mid` int(11) DEFAULT NULL,
+  `rid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mid` (`mid`),
+  KEY `rid` (`rid`),
+  CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
+  CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu_role
+-- ----------------------------
+INSERT INTO `menu_role` VALUES ('161', '7', '3');
+INSERT INTO `menu_role` VALUES ('162', '7', '6');
+INSERT INTO `menu_role` VALUES ('163', '9', '6');
+INSERT INTO `menu_role` VALUES ('164', '10', '6');
+INSERT INTO `menu_role` VALUES ('165', '11', '6');
+INSERT INTO `menu_role` VALUES ('166', '12', '6');
+INSERT INTO `menu_role` VALUES ('167', '13', '6');
+INSERT INTO `menu_role` VALUES ('168', '14', '6');
+INSERT INTO `menu_role` VALUES ('169', '15', '6');
+INSERT INTO `menu_role` VALUES ('170', '16', '6');
+INSERT INTO `menu_role` VALUES ('171', '17', '6');
+INSERT INTO `menu_role` VALUES ('172', '18', '6');
+INSERT INTO `menu_role` VALUES ('173', '19', '6');
+INSERT INTO `menu_role` VALUES ('174', '20', '6');
+INSERT INTO `menu_role` VALUES ('175', '21', '6');
+INSERT INTO `menu_role` VALUES ('176', '22', '6');
+INSERT INTO `menu_role` VALUES ('177', '23', '6');
+INSERT INTO `menu_role` VALUES ('178', '25', '6');
+INSERT INTO `menu_role` VALUES ('179', '26', '6');
+INSERT INTO `menu_role` VALUES ('180', '27', '6');
+INSERT INTO `menu_role` VALUES ('181', '28', '6');
+INSERT INTO `menu_role` VALUES ('182', '24', '6');
+INSERT INTO `menu_role` VALUES ('247', '7', '4');
+INSERT INTO `menu_role` VALUES ('248', '8', '4');
+INSERT INTO `menu_role` VALUES ('249', '11', '4');
+INSERT INTO `menu_role` VALUES ('250', '7', '2');
+INSERT INTO `menu_role` VALUES ('251', '8', '2');
+INSERT INTO `menu_role` VALUES ('252', '9', '2');
+INSERT INTO `menu_role` VALUES ('253', '10', '2');
+INSERT INTO `menu_role` VALUES ('254', '12', '2');
+INSERT INTO `menu_role` VALUES ('255', '13', '2');
+INSERT INTO `menu_role` VALUES ('256', '7', '1');
+INSERT INTO `menu_role` VALUES ('257', '8', '1');
+INSERT INTO `menu_role` VALUES ('258', '9', '1');
+INSERT INTO `menu_role` VALUES ('259', '10', '1');
+INSERT INTO `menu_role` VALUES ('260', '11', '1');
+INSERT INTO `menu_role` VALUES ('261', '12', '1');
+INSERT INTO `menu_role` VALUES ('262', '13', '1');
+INSERT INTO `menu_role` VALUES ('263', '14', '1');
+INSERT INTO `menu_role` VALUES ('264', '15', '1');
+INSERT INTO `menu_role` VALUES ('265', '16', '1');
+INSERT INTO `menu_role` VALUES ('266', '17', '1');
+INSERT INTO `menu_role` VALUES ('267', '18', '1');
+INSERT INTO `menu_role` VALUES ('268', '19', '1');
+INSERT INTO `menu_role` VALUES ('269', '20', '1');
+INSERT INTO `menu_role` VALUES ('270', '21', '1');
+INSERT INTO `menu_role` VALUES ('271', '22', '1');
+INSERT INTO `menu_role` VALUES ('272', '23', '1');
+INSERT INTO `menu_role` VALUES ('273', '24', '1');
+INSERT INTO `menu_role` VALUES ('274', '25', '1');
+INSERT INTO `menu_role` VALUES ('275', '26', '1');
+INSERT INTO `menu_role` VALUES ('276', '27', '1');
+INSERT INTO `menu_role` VALUES ('277', '28', '1');
+
+-- ----------------------------
+-- Table structure for msgcontent
+-- ----------------------------
+DROP TABLE IF EXISTS `msgcontent`;
+CREATE TABLE `msgcontent` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of msgcontent
@@ -420,3 +650,284 @@ INSERT INTO `msgcontent` VALUES ('15', '22222222', '3333333333333333333333', '20
 INSERT INTO `msgcontent` VALUES ('16', '通知标题1', '通知内容1', '2018-02-03 11:41:39');
 INSERT INTO `msgcontent` VALUES ('17', '通知标题2', '通知内容2', '2018-02-03 11:52:37');
 INSERT INTO `msgcontent` VALUES ('18', '通知标题3', '通知内容3', '2018-02-03 12:19:41');
+
+-- ----------------------------
+-- Table structure for nation
+-- ----------------------------
+DROP TABLE IF EXISTS `nation`;
+CREATE TABLE `nation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of nation
+-- ----------------------------
+INSERT INTO `nation` VALUES ('1', '汉族');
+INSERT INTO `nation` VALUES ('2', '蒙古族');
+INSERT INTO `nation` VALUES ('3', '回族');
+INSERT INTO `nation` VALUES ('4', '藏族');
+INSERT INTO `nation` VALUES ('5', '维吾尔族');
+INSERT INTO `nation` VALUES ('6', '苗族');
+INSERT INTO `nation` VALUES ('7', '彝族');
+INSERT INTO `nation` VALUES ('8', '壮族');
+INSERT INTO `nation` VALUES ('9', '布依族');
+INSERT INTO `nation` VALUES ('10', '朝鲜族');
+INSERT INTO `nation` VALUES ('11', '满族');
+INSERT INTO `nation` VALUES ('12', '侗族');
+INSERT INTO `nation` VALUES ('13', '瑶族');
+INSERT INTO `nation` VALUES ('14', '白族');
+INSERT INTO `nation` VALUES ('15', '土家族');
+INSERT INTO `nation` VALUES ('16', '哈尼族');
+INSERT INTO `nation` VALUES ('17', '哈萨克族');
+INSERT INTO `nation` VALUES ('18', '傣族');
+INSERT INTO `nation` VALUES ('19', '黎族');
+INSERT INTO `nation` VALUES ('20', '傈僳族');
+INSERT INTO `nation` VALUES ('21', '佤族');
+INSERT INTO `nation` VALUES ('22', '畲族');
+INSERT INTO `nation` VALUES ('23', '高山族');
+INSERT INTO `nation` VALUES ('24', '拉祜族');
+INSERT INTO `nation` VALUES ('25', '水族');
+INSERT INTO `nation` VALUES ('26', '东乡族');
+INSERT INTO `nation` VALUES ('27', '纳西族');
+INSERT INTO `nation` VALUES ('28', '景颇族');
+INSERT INTO `nation` VALUES ('29', '柯尔克孜族');
+INSERT INTO `nation` VALUES ('30', '土族');
+INSERT INTO `nation` VALUES ('31', '达斡尔族');
+INSERT INTO `nation` VALUES ('32', '仫佬族');
+INSERT INTO `nation` VALUES ('33', '羌族');
+INSERT INTO `nation` VALUES ('34', '布朗族');
+INSERT INTO `nation` VALUES ('35', '撒拉族');
+INSERT INTO `nation` VALUES ('36', '毛难族');
+INSERT INTO `nation` VALUES ('37', '仡佬族');
+INSERT INTO `nation` VALUES ('38', '锡伯族');
+INSERT INTO `nation` VALUES ('39', '阿昌族');
+INSERT INTO `nation` VALUES ('40', '普米族');
+INSERT INTO `nation` VALUES ('41', '塔吉克族');
+INSERT INTO `nation` VALUES ('42', '怒族');
+INSERT INTO `nation` VALUES ('43', '乌孜别克族');
+INSERT INTO `nation` VALUES ('44', '俄罗斯族');
+INSERT INTO `nation` VALUES ('45', '鄂温克族');
+INSERT INTO `nation` VALUES ('46', '崩龙族');
+INSERT INTO `nation` VALUES ('47', '保安族');
+INSERT INTO `nation` VALUES ('48', '裕固族');
+INSERT INTO `nation` VALUES ('49', '京族');
+INSERT INTO `nation` VALUES ('50', '塔塔尔族');
+INSERT INTO `nation` VALUES ('51', '独龙族');
+INSERT INTO `nation` VALUES ('52', '鄂伦春族');
+INSERT INTO `nation` VALUES ('53', '赫哲族');
+INSERT INTO `nation` VALUES ('54', '门巴族');
+INSERT INTO `nation` VALUES ('55', '珞巴族');
+INSERT INTO `nation` VALUES ('56', '基诺族');
+
+-- ----------------------------
+-- Table structure for oplog
+-- ----------------------------
+DROP TABLE IF EXISTS `oplog`;
+CREATE TABLE `oplog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `addDate` date DEFAULT NULL COMMENT '添加日期',
+  `operate` varchar(255) DEFAULT NULL COMMENT '操作内容',
+  `hrid` int(11) DEFAULT NULL COMMENT '操作员ID',
+  PRIMARY KEY (`id`),
+  KEY `hrid` (`hrid`),
+  CONSTRAINT `oplog_ibfk_1` FOREIGN KEY (`hrid`) REFERENCES `hr` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oplog
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for politicsstatus
+-- ----------------------------
+DROP TABLE IF EXISTS `politicsstatus`;
+CREATE TABLE `politicsstatus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of politicsstatus
+-- ----------------------------
+INSERT INTO `politicsstatus` VALUES ('1', '中共党员');
+INSERT INTO `politicsstatus` VALUES ('2', '中共预备党员');
+INSERT INTO `politicsstatus` VALUES ('3', '共青团员');
+INSERT INTO `politicsstatus` VALUES ('4', '民革党员');
+INSERT INTO `politicsstatus` VALUES ('5', '民盟盟员');
+INSERT INTO `politicsstatus` VALUES ('6', '民建会员');
+INSERT INTO `politicsstatus` VALUES ('7', '民进会员');
+INSERT INTO `politicsstatus` VALUES ('8', '农工党党员');
+INSERT INTO `politicsstatus` VALUES ('9', '致公党党员');
+INSERT INTO `politicsstatus` VALUES ('10', '九三学社社员');
+INSERT INTO `politicsstatus` VALUES ('11', '台盟盟员');
+INSERT INTO `politicsstatus` VALUES ('12', '无党派民主人士');
+INSERT INTO `politicsstatus` VALUES ('13', '普通公民');
+
+-- ----------------------------
+-- Table structure for position
+-- ----------------------------
+DROP TABLE IF EXISTS `position`;
+CREATE TABLE `position` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL COMMENT '职位',
+  `createDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `enabled` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of position
+-- ----------------------------
+INSERT INTO `position` VALUES ('29', '技术总监', '2018-01-11 21:13:42', '1');
+INSERT INTO `position` VALUES ('30', '运营总监', '2018-01-11 21:13:48', '1');
+INSERT INTO `position` VALUES ('31', '市场总监', '2018-01-11 21:13:56', '1');
+INSERT INTO `position` VALUES ('32', '总经理', '2018-01-11 21:35:07', '1');
+INSERT INTO `position` VALUES ('33', '研发工程师', '2018-01-14 16:07:11', '1');
+INSERT INTO `position` VALUES ('34', '运维工程师', '2018-01-14 16:11:41', '1');
+
+-- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) DEFAULT NULL,
+  `nameZh` varchar(64) DEFAULT NULL COMMENT '角色名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('1', 'ROLE_manager', '部门经理');
+INSERT INTO `role` VALUES ('2', 'ROLE_personnel', '人事专员');
+INSERT INTO `role` VALUES ('3', 'ROLE_recruiter', '招聘主管');
+INSERT INTO `role` VALUES ('4', 'ROLE_train', '培训主管');
+INSERT INTO `role` VALUES ('5', 'ROLE_performance', '薪酬绩效主管');
+INSERT INTO `role` VALUES ('6', 'ROLE_admin', '系统管理员');
+INSERT INTO `role` VALUES ('13', 'ROLE_test2', '测试角色2');
+INSERT INTO `role` VALUES ('14', 'ROLE_test1', '测试角色1');
+
+-- ----------------------------
+-- Table structure for salary
+-- ----------------------------
+DROP TABLE IF EXISTS `salary`;
+CREATE TABLE `salary` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `basicSalary` int(11) DEFAULT NULL COMMENT '基本工资',
+  `bonus` int(11) DEFAULT NULL COMMENT '奖金',
+  `lunchSalary` int(11) DEFAULT NULL COMMENT '午餐补助',
+  `trafficSalary` int(11) DEFAULT NULL COMMENT '交通补助',
+  `allSalary` int(11) DEFAULT NULL COMMENT '应发工资',
+  `pensionBase` int(11) DEFAULT NULL COMMENT '养老金基数',
+  `pensionPer` float DEFAULT NULL COMMENT '养老金比率',
+  `createDate` timestamp NULL DEFAULT NULL COMMENT '启用时间',
+  `medicalBase` int(11) DEFAULT NULL COMMENT '医疗基数',
+  `medicalPer` float DEFAULT NULL COMMENT '医疗保险比率',
+  `accumulationFundBase` int(11) DEFAULT NULL COMMENT '公积金基数',
+  `accumulationFundPer` float DEFAULT NULL COMMENT '公积金比率',
+  `name` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of salary
+-- ----------------------------
+INSERT INTO `salary` VALUES ('9', '9000', '4000', '800', '500', null, '2000', '0.07', '2018-01-24 00:00:00', '2000', '0.07', '2000', '0.07', '市场部工资账套');
+INSERT INTO `salary` VALUES ('10', '2000', '2000', '400', '1000', null, '2000', '0.07', '2018-01-01 00:00:00', '2000', '0.07', '2000', '0.07', '人事部工资账套');
+INSERT INTO `salary` VALUES ('13', '10000', '3000', '500', '500', null, '4000', '0.07', '2018-01-25 00:00:00', '4000', '0.07', '4000', '0.07', '运维部工资账套');
+
+-- ----------------------------
+-- Table structure for sysmsg
+-- ----------------------------
+DROP TABLE IF EXISTS `sysmsg`;
+CREATE TABLE `sysmsg` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mid` int(11) DEFAULT NULL COMMENT '消息id',
+  `type` int(11) DEFAULT '0' COMMENT '0表示群发消息',
+  `hrid` int(11) DEFAULT NULL COMMENT '这条消息是给谁的',
+  `state` int(11) DEFAULT '0' COMMENT '0 未读 1 已读',
+  PRIMARY KEY (`id`),
+  KEY `hrid` (`hrid`),
+  KEY `sysmsg_ibfk_1` (`mid`),
+  CONSTRAINT `sysmsg_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `msgcontent` (`id`),
+  CONSTRAINT `sysmsg_ibfk_2` FOREIGN KEY (`hrid`) REFERENCES `hr` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sysmsg
+-- ----------------------------
+INSERT INTO `sysmsg` VALUES ('57', '14', '0', '3', '1');
+INSERT INTO `sysmsg` VALUES ('58', '14', '0', '5', '1');
+INSERT INTO `sysmsg` VALUES ('59', '14', '0', '10', '1');
+INSERT INTO `sysmsg` VALUES ('60', '14', '0', '11', '0');
+INSERT INTO `sysmsg` VALUES ('61', '14', '0', '12', '0');
+INSERT INTO `sysmsg` VALUES ('62', '15', '0', '3', '1');
+INSERT INTO `sysmsg` VALUES ('63', '15', '0', '5', '1');
+INSERT INTO `sysmsg` VALUES ('64', '15', '0', '10', '1');
+INSERT INTO `sysmsg` VALUES ('65', '15', '0', '11', '0');
+INSERT INTO `sysmsg` VALUES ('66', '15', '0', '12', '0');
+INSERT INTO `sysmsg` VALUES ('67', '16', '0', '3', '1');
+INSERT INTO `sysmsg` VALUES ('68', '16', '0', '5', '1');
+INSERT INTO `sysmsg` VALUES ('69', '16', '0', '10', '1');
+INSERT INTO `sysmsg` VALUES ('70', '16', '0', '11', '0');
+INSERT INTO `sysmsg` VALUES ('71', '16', '0', '12', '0');
+INSERT INTO `sysmsg` VALUES ('72', '17', '0', '3', '1');
+INSERT INTO `sysmsg` VALUES ('73', '17', '0', '5', '1');
+INSERT INTO `sysmsg` VALUES ('74', '17', '0', '10', '1');
+INSERT INTO `sysmsg` VALUES ('75', '17', '0', '11', '0');
+INSERT INTO `sysmsg` VALUES ('76', '17', '0', '12', '0');
+INSERT INTO `sysmsg` VALUES ('77', '18', '0', '3', '1');
+INSERT INTO `sysmsg` VALUES ('78', '18', '0', '5', '0');
+INSERT INTO `sysmsg` VALUES ('79', '18', '0', '10', '0');
+INSERT INTO `sysmsg` VALUES ('80', '18', '0', '11', '0');
+INSERT INTO `sysmsg` VALUES ('81', '18', '0', '12', '0');
+
+-- ----------------------------
+-- Procedure structure for addDep
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `addDep`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addDep`(in depName varchar(32),in parentId int,in enabled boolean,out result int,out result2 int)
+begin
+  declare did int;
+  declare pDepPath varchar(64);
+  insert into department set name=depName,parentId=parentId,enabled=enabled;
+  select row_count() into result;
+  select last_insert_id() into did;
+  set result2=did;
+  select depPath into pDepPath from department where id=parentId;
+  update department set depPath=concat(pDepPath,'.',did) where id=did;
+  update department set isParent=true where id=parentId;
+end
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for deleteDep
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `deleteDep`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteDep`(in did int,out result int)
+begin
+  declare ecount int;
+  declare pid int;
+  declare pcount int;
+  select count(*) into ecount from employee where departmentId=did;
+  if ecount>0 then set result=-1;
+  else 
+  select parentId into pid from department where id=did;
+  delete from department where id=did and isParent=false;
+  select row_count() into result;
+  select count(*) into pcount from department where parentId=pid;
+  if pcount=0 then update department set isParent=false where id=pid;
+  end if;
+  end if;
+end
+;;
+DELIMITER ;
+SET FOREIGN_KEY_CHECKS=1;
