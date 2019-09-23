@@ -1,6 +1,6 @@
 package com.ynding.springboot;
 
-import com.ynding.springboot.web.o.dto.UserDto;
+import com.ynding.springboot.o.dto.UserDto;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

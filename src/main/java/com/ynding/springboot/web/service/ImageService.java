@@ -1,4 +1,4 @@
-package com.ynding.springboot.web.service.impl;
+package com.ynding.springboot.web.service;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Service;

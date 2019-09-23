@@ -1,4 +1,4 @@
-package com.ynding.springboot.web.service.impl;
+package com.ynding.springboot.web.service;
 
 import com.ynding.springboot.entity.Book;
 import com.ynding.springboot.web.data.BookRepository;

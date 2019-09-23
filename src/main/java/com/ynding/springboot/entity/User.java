@@ -15,8 +15,8 @@ import java.util.List;
 
 @Data
 @Entity
-@ApiModel(value = "Hr", description = "hr")
-public class Hr implements UserDetails {
+@ApiModel(value = "User", description = "用户")
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -31,8 +31,8 @@ public class Hr implements UserDetails {
     private String password;
     private String remark;
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(name = "hr_role",
-        joinColumns = @JoinColumn(name = "hrid"),
+    @JoinTable(name = "user_role",
+        joinColumns = @JoinColumn(name = "userid"),
         inverseJoinColumns = @JoinColumn(name = "rid"))
     private List<Role> roles;
     private String userface;

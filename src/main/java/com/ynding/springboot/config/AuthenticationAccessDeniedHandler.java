@@ -1,7 +1,7 @@
 package com.ynding.springboot.config;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ynding.springboot.web.o.bo.ResponseBean;
+import com.ynding.springboot.o.bo.ResponseBean;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;

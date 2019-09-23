@@ -1,6 +1,5 @@
 package com.ynding.springboot.web.data;
 
-import com.ynding.springboot.entity.Hr;
 import com.ynding.springboot.entity.Menu;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;

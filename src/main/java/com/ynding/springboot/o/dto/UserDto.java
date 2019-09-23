@@ -1,4 +1,4 @@
-package com.ynding.springboot.web.o.dto;
+package com.ynding.springboot.o.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

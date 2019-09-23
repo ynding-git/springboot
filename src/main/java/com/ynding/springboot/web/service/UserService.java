@@ -1,7 +1,7 @@
-package com.ynding.springboot.web.service.impl;
+package com.ynding.springboot.web.service;
 
-import com.ynding.springboot.entity.Hr;
-import com.ynding.springboot.web.data.HrRepository;
+import com.ynding.springboot.entity.User;
+import com.ynding.springboot.web.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,17 +9,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HrService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     @Autowired
-    private HrRepository hrRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Hr hr = hrRepository.findHrByUsername(s);
-        if(hr == null){
+        User user = userRepository.findHrByUsername(s);
+        if(user == null){
             throw new UsernameNotFoundException("用户名不存在");
         }
-        return hr;
+        return user;
     }
 }

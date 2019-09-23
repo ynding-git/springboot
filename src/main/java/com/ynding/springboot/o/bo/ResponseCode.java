@@ -1,4 +1,4 @@
-package com.ynding.springboot.web.o.bo;
+package com.ynding.springboot.o.bo;
 
 /**
  * 返回码

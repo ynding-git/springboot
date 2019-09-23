@@ -18,13 +18,14 @@ public class Role {
 
     private String name;
 
+    @ApiModelProperty(name = "nameZh", notes = "角色名称", dataType = "string")
     private String nameZh;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinTable(name = "hr_role",
+    @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "rid"),
-            inverseJoinColumns = @JoinColumn(name = "hrid"))
-    private List<Hr> hrs;
+            inverseJoinColumns = @JoinColumn(name = "userid"))
+    private List<User> hrs;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name = "menu_role",
