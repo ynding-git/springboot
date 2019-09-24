@@ -1,4 +1,4 @@
-package com.ynding.springboot.util;
+package com.ynding.springboot.common.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

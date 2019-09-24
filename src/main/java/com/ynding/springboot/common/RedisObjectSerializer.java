@@ -1,4 +1,4 @@
-package com.ynding.springboot.util;
+package com.ynding.springboot.common;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.serializer.support.DeserializingConverter;

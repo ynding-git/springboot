@@ -53,3 +53,10 @@ spring:
 logging:
   level:
     com.xxx: debug
+
+task:
+  pool:
+    corePoolSize: 20
+    maxPoolSize: 40
+    keepAliveSeconds: 300
+    queueCapacity: 50

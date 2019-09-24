@@ -1,6 +1,6 @@
 package com.ynding.springboot.config;
 
-import com.ynding.springboot.util.RedisObjectSerializer;
+import com.ynding.springboot.common.RedisObjectSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;

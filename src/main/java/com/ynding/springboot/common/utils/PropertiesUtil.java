@@ -1,4 +1,4 @@
-package com.ynding.springboot.util;
+package com.ynding.springboot.common.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

@@ -1,4 +1,4 @@
-package com.ynding.springboot.util;
+package com.ynding.springboot.common.utils;
 
 /**
  * 验证工具类

@@ -1,4 +1,4 @@
-package com.ynding.springboot.util;
+package com.ynding.springboot.common.utils;
 
 import sun.misc.BASE64Encoder;
 

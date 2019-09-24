@@ -1,4 +1,4 @@
-package com.ynding.springboot.util;
+package com.ynding.springboot.common.utils;
 
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;

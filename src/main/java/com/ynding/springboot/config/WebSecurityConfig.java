@@ -40,35 +40,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("index.html","static/**","login_p");
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        //任何请求会跳到登录界面
-//        http
-//                .authorizeRequests()
-//                   .antMatchers("/resources/**", "/","/h2-console/*","/**/register").permitAll()
-//                   .anyRequest().authenticated()
-//               /* .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-//                    @Override
-//                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
-//                        o.setSecurityMetadataSource(metadataSource);
-//                        o.setAccessDecisionManager(urlAccessDecisionManager);
-//                        return o;
-//                    }
-//                })*/
-////                .and()
-////                .formLogin()
-////                .loginPage("/login_p")//登录页
-////                .loginProcessingUrl("/login")//登录提交的处理Url
-////                .usernameParameter("username") //form表单密码参数名
-////                .passwordParameter("password")//form表单用户名参数名
-////                .permitAll()////允许所有用户都有权限访问登录页面
-////                .and()
-////                .logout()
-////                .permitAll()
-////                .and()
-////                .csrf().disable()
-////                .exceptionHandling().accessDeniedHandler(deniedHandler)
-//                ;//启用HTTP Basic认证
-//
-//    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //任何请求会跳到登录界面
+        http
+                .authorizeRequests()
+                   .antMatchers("/resources/**","/ws/**", "/","/h2-console/*","/**/register").permitAll()
+                   .anyRequest().authenticated()
+               /* .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                        o.setSecurityMetadataSource(metadataSource);
+                        o.setAccessDecisionManager(urlAccessDecisionManager);
+                        return o;
+                    }
+                })*/
+//                .and()
+//                .formLogin()
+//                .loginPage("/login_p")//登录页
+//                .loginProcessingUrl("/login")//登录提交的处理Url
+//                .usernameParameter("username") //form表单密码参数名
+//                .passwordParameter("password")//form表单用户名参数名
+//                .permitAll()////允许所有用户都有权限访问登录页面
+//                .and()
+//                .logout()
+//                .permitAll()
+//                .and()
+//                .csrf().disable()
+//                .exceptionHandling().accessDeniedHandler(deniedHandler)
+                ;//启用HTTP Basic认证
+
+    }
 }
