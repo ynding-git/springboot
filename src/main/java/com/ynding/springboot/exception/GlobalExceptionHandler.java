@@ -26,4 +26,14 @@ public class GlobalExceptionHandler {
         mav.setViewName(DEFAULT_ERROR_VIEW);
         return mav;
     }
+
+    @ExceptionHandler(CException.class)
+    public ModelAndView CException(HttpServletRequest req, CException e) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", e);
+        mav.addObject("url", req.getRequestURL());
+        mav.addObject("msg", e.getExceptionEnum().getECode());
+        mav.setViewName(DEFAULT_ERROR_VIEW);
+        return mav;
+    }
 }

@@ -1,17 +1,16 @@
+/*
 package com.ynding.springboot.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
 @Entity
+@Table(name = "employee")
 @ApiModel(value = "Employee",description = "员工")
 public class Employee {
 
@@ -48,5 +47,6 @@ public class Employee {
     private Date endContract;
     private Integer workAge;
 
-
 }
+
+*/

@@ -1,20 +1,41 @@
 package com.ynding.springboot.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ynding.springboot.common.UserUtils;
+import com.ynding.springboot.entity.User;
+import com.ynding.springboot.o.bo.ResponseBean;
 import com.ynding.springboot.web.service.UserService;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -30,45 +51,101 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 用户存储
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers("index.html","static/**","login_p");
+    public void configure(WebSecurity web) throws Exception {
+        //不做拦截的路径
+        web.ignoring().antMatchers("/","index.html","/ws/**","/resources/**",
+                "static/**","/h2-console/**", "login_p", "/favicon.ico");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+
+        http.csrf().disable();//禁用security的csrf
+
         //任何请求会跳到登录界面
         http
                 .authorizeRequests()
-                   .antMatchers("/resources/**","/ws/**", "/","/h2-console/*","/**/register").permitAll()
-                   .anyRequest().authenticated()
-               /* .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O o) {
                         o.setSecurityMetadataSource(metadataSource);
                         o.setAccessDecisionManager(urlAccessDecisionManager);
                         return o;
                     }
-                })*/
-//                .and()
-//                .formLogin()
-//                .loginPage("/login_p")//登录页
-//                .loginProcessingUrl("/login")//登录提交的处理Url
-//                .usernameParameter("username") //form表单密码参数名
-//                .passwordParameter("password")//form表单用户名参数名
-//                .permitAll()////允许所有用户都有权限访问登录页面
-//                .and()
-//                .logout()
-//                .permitAll()
-//                .and()
-//                .csrf().disable()
-//                .exceptionHandling().accessDeniedHandler(deniedHandler)
-                ;//启用HTTP Basic认证
+                })
+                .and().formLogin().loginPage("/login_p")//登录页
+                .loginProcessingUrl("/login")//登录提交的处理Url
+                .failureHandler(authenticationFailureHandler())
+                .successHandler(loginSuccessHandler())
+                .permitAll()//允许所有用户都有权限访问登录页面
+                .and().logout().permitAll().logoutSuccessHandler(logoutSuccessHandler())
+                .and().exceptionHandling().accessDeniedHandler(deniedHandler)
+        ;
 
     }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {//登录失败处理
+        return (req, resp, e) -> {
+            resp.setContentType("application/json;charset=utf-8");
+            ResponseBean respBean = null;
+            if (e instanceof BadCredentialsException ||
+                    e instanceof UsernameNotFoundException) {
+                respBean = ResponseBean.fail("账户名或者密码输入错误!");
+            } else if (e instanceof LockedException) {
+                respBean = ResponseBean.fail("账户被锁定，请联系管理员!");
+            } else if (e instanceof CredentialsExpiredException) {
+                respBean = ResponseBean.fail("密码过期，请联系管理员!");
+            } else if (e instanceof AccountExpiredException) {
+                respBean = ResponseBean.fail("账户过期，请联系管理员!");
+            } else if (e instanceof DisabledException) {
+                respBean = ResponseBean.fail("账户被禁用，请联系管理员!");
+            } else {
+                respBean = ResponseBean.fail("登录失败!");
+            }
+            resp.setStatus(401);
+            ObjectMapper om = new ObjectMapper();
+            PrintWriter out = resp.getWriter();
+            out.write(om.writeValueAsString(respBean));
+            out.flush();
+            out.close();
+        };
+    }
+
+    @Bean
+    public SavedRequestAwareAuthenticationSuccessHandler loginSuccessHandler() { //登入处理
+        return new SavedRequestAwareAuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                User userDetails = (User) authentication.getPrincipal();
+                logger.info("USER : " + userDetails.getUsername() + " LOGIN SUCCESS !  ");
+                super.onAuthenticationSuccess(request, response, authentication);
+            }
+        };
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() { //登出处理
+        return new LogoutSuccessHandler() {
+            @Override
+            public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+                try {
+                    User user = (User) authentication.getPrincipal();
+                    log.info("USER : " + user.getUsername() + " LOGOUT SUCCESS !  ");
+                } catch (Exception e) {
+                    log.info("LOGOUT EXCEPTION , e : " + e.getMessage());
+                }
+                httpServletResponse.sendRedirect("/login");
+            }
+        };
+    }
+
+
 }

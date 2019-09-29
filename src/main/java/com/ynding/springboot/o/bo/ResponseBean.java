@@ -24,6 +24,11 @@ public class ResponseBean<T> {
         this.code = code;
     }
 
+    public ResponseBean(String message, T data) {
+        this.message = message;
+        this.data = data;
+    }
+
     public ResponseBean(int code) {
         this.code = code;
     }
@@ -45,6 +50,9 @@ public class ResponseBean<T> {
 
     public static <T> ResponseBean<T> ok(T data) {
         return new ResponseBean(data);
+    }
+    public static <T> ResponseBean<T> ok(String message,T data) {
+        return new ResponseBean(message,data);
     }
 
     public static <T> ResponseBean<T> fail() {

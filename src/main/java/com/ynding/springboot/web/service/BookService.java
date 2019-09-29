@@ -36,6 +36,7 @@ public class BookService {
         return bookRepository.findByReader(reader);
     }
 
+    @Transactional(readOnly = false)
     public Book save(Book book) {
         return bookRepository.save(book);
     }

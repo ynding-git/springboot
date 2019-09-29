@@ -18,12 +18,21 @@ CREATE TABLE `Spittle` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `t_book`(
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `reader` varchar(255),
+  `isbn` varchar(255),
+  `title` varchar(255),
+  `author` varchar(255),
+  `description` varchar(255),
+  PRIMARY KEY (`id`)
+);
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'hrID',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(32) DEFAULT NULL COMMENT '姓名',
   `phone` char(11) DEFAULT NULL COMMENT '手机号码',
   `telephone` varchar(16) DEFAULT NULL COMMENT '住宅电话',
@@ -34,7 +43,7 @@ CREATE TABLE `user` (
   `userface` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ;
 
 -- ----------------------------
 -- Table structure for role
@@ -45,7 +54,7 @@ CREATE TABLE `role` (
   `name` varchar(64) DEFAULT NULL,
   `nameZh` varchar(64) DEFAULT NULL COMMENT '角色名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=15 ;
 
 -- ----------------------------
 -- Table structure for hr_role
@@ -56,9 +65,9 @@ CREATE TABLE `user_role` (
   `userid` int(11) DEFAULT NULL,
   `rid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `hr_role_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `hr_role_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`),
   CONSTRAINT `hr_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=50;
 
 
 -- ----------------------------
@@ -72,13 +81,13 @@ CREATE TABLE `menu` (
   `component` varchar(64) DEFAULT NULL,
   `name` varchar(64) DEFAULT NULL,
   `iconCls` varchar(64) DEFAULT NULL,
-  `keepAlive` tinyint(1) DEFAULT NULL,
-  `requireAuth` tinyint(1) DEFAULT NULL,
+  `keepAlive` tinyint(1) DEFAULT '1',
+  `requireAuth` tinyint(1) DEFAULT '1',
   `parentId` int(11) DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=29;
 
 -- ----------------------------
 -- Table structure for menu_role
@@ -91,7 +100,7 @@ CREATE TABLE `menu_role` (
   PRIMARY KEY (`id`),
   CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
   CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=278;
 
 -- ----------------------------
 -- Table structure for department
@@ -105,7 +114,7 @@ CREATE TABLE `department` (
   `enabled` tinyint(1) DEFAULT '1',
   `isParent` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=93;
 
 -- ----------------------------
 -- Table structure for joblevel
@@ -118,7 +127,7 @@ CREATE TABLE `joblevel` (
   `createDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `enabled` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=18;
 
 -- ----------------------------
 -- Table structure for position
@@ -131,7 +140,7 @@ CREATE TABLE `position` (
   `enabled` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=35;
 
 -- ----------------------------
 -- Table structure for nation
@@ -141,7 +150,7 @@ CREATE TABLE `nation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=57;
 
 -- ----------------------------
 -- Table structure for politicsstatus
@@ -151,7 +160,7 @@ CREATE TABLE `politicsstatus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=14;
 
 -- ----------------------------
 -- Table structure for employee
@@ -192,7 +201,7 @@ CREATE TABLE `employee` (
   CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`posId`) REFERENCES `position` (`id`),
   CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`nationId`) REFERENCES `nation` (`id`),
   CONSTRAINT `employee_ibfk_5` FOREIGN KEY (`politicId`) REFERENCES `politicsstatus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1519 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=1519;
 
 -- ----------------------------
 -- Table structure for adjustsalary
@@ -224,7 +233,7 @@ CREATE TABLE `appraise` (
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`),
   CONSTRAINT `appraise_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 
 -- ----------------------------
@@ -241,7 +250,7 @@ CREATE TABLE `employeeec` (
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`),
   CONSTRAINT `employeeec_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- ----------------------------
 -- Table structure for employeeremove
@@ -257,7 +266,7 @@ CREATE TABLE `employeeremove` (
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `employeeremove_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- ----------------------------
 -- Table structure for employeetrain
@@ -271,7 +280,7 @@ CREATE TABLE `employeetrain` (
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`),
   CONSTRAINT `employeetrain_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ;
 
 -- ----------------------------
 -- Table structure for salary
@@ -293,7 +302,7 @@ CREATE TABLE `salary` (
   `accumulationFundPer` float DEFAULT NULL COMMENT '公积金比率',
   `name` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=14 ;
 
 -- ----------------------------
 -- Table structure for empsalary
@@ -306,16 +315,4 @@ CREATE TABLE `empsalary` (
   PRIMARY KEY (`id`),
   CONSTRAINT `empsalary_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`),
   CONSTRAINT `empsalary_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `salary` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for msgcontent
--- ----------------------------
-DROP TABLE IF EXISTS `msgcontent`;
-CREATE TABLE `msgcontent` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(64) DEFAULT NULL,
-  `message` varchar(255) DEFAULT NULL,
-  `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+)  AUTO_INCREMENT=17;

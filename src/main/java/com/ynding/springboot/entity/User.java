@@ -9,6 +9,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
 @Data
 @Entity
 @ApiModel(value = "User", description = "用户")
-public class User implements UserDetails {
+public class User implements UserDetails,Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,7 +28,8 @@ public class User implements UserDetails {
     private String phone;
     private String telephone;
     private String address;
-    private boolean enable;
+    @NotNull
+    private int enabled;
     private String username;
     private String password;
     private String remark;
@@ -77,6 +80,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enable;
+        return enabled == 1;
     }
 }
