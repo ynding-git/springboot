@@ -43,6 +43,7 @@ public class BookController {
 	}
 
 	@GetMapping("/list")
+	@ApiOperation(value = "查询列表", produces = "application/json")
 	public ResponseBean findList(@RequestParam Map<String, Object> params){
 
 	    GQuery query = new GQuery(params);
@@ -52,6 +53,7 @@ public class BookController {
 	}
 
 	@GetMapping("/page")
+	@ApiOperation(value = "分页查询", produces = "application/json")
 	public ResponseBean findPage(@RequestParam Map<String, Object> params){
 		GQuery query = new GQuery(params);
 		Page<Book> page = bookService.pageList(query);

@@ -1,11 +1,10 @@
 package com.ynding.springboot.web.data;
 
-import com.ynding.springboot.entity.Book;
 import com.ynding.springboot.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-public interface UserRepository extends JpaRepository<User, Long>,JpaSpecificationExecutor<Book> {
+public interface UserRepository extends JpaRepository<User, Long>,QuerydslPredicateExecutor<User> {
 
     User findUserByUsername(String username);
 }

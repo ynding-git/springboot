@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL,
-  `nameZh` varchar(64) DEFAULT NULL COMMENT '角色名称',
+  `name_zh` varchar(64) DEFAULT NULL COMMENT '角色名称',
   PRIMARY KEY (`id`)
 ) AUTO_INCREMENT=15 ;
 
@@ -80,13 +80,13 @@ CREATE TABLE `menu` (
   `path` varchar(64) DEFAULT NULL,
   `component` varchar(64) DEFAULT NULL,
   `name` varchar(64) DEFAULT NULL,
-  `iconCls` varchar(64) DEFAULT NULL,
-  `keepAlive` tinyint(1) DEFAULT '1',
-  `requireAuth` tinyint(1) DEFAULT '1',
-  `parentId` int(11) DEFAULT NULL,
+  `icon_cls` varchar(64) DEFAULT NULL,
+  `keep_alive` tinyint(1) DEFAULT '1',
+  `require_auth` tinyint(1) DEFAULT '1',
+  `parent_id` int(11) DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
-  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`)
+  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `menu` (`id`)
 ) AUTO_INCREMENT=29;
 
 -- ----------------------------

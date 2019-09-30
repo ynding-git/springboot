@@ -41,6 +41,7 @@ spring:
     #开发配置为false,避免修改模板还要重启服务器
     cache: false
     #prefix: /WEB-INF/templates/
+    prefix: classpath:/templates/
   mvc:
     favicon:
       enabled: false

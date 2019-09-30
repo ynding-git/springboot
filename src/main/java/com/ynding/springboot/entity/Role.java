@@ -26,13 +26,16 @@ public class Role implements Serializable {
     private String nameZh;
 
     //懒加载 不会查询role表
+    /*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id",scope = ServerRequest.class)
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "rid"),
             inverseJoinColumns = @JoinColumn(name = "userid"))
-    private List<User> users;
+    private List<User> users;*/
 
     //急加载 会查询role表
+    /**@JsonIdentityInfo  用来解决多对多关联中json无限循环获取的错误*/
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id",scope = ServerRequest.class)
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "menu_role",
             joinColumns = @JoinColumn(name = "rid"),

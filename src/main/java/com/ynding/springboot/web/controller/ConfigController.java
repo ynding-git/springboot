@@ -5,9 +5,11 @@ import com.ynding.springboot.common.UserUtils;
 import com.ynding.springboot.entity.Menu;
 import com.ynding.springboot.entity.Role;
 import com.ynding.springboot.entity.User;
+import com.ynding.springboot.web.data.MenuRepository;
 import com.ynding.springboot.web.data.UserRepository;
 import com.ynding.springboot.web.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.util.ArrayUtils;
@@ -28,14 +30,17 @@ public class ConfigController {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    MenuRepository menuRepository;
 
-    @RequestMapping("/sysMenu")
+
+    @GetMapping("/sysMenu")
     public List<Menu> sysMenu() {
 
-        return null;
+        return menuRepository.findAll();
     }
 
-    @RequestMapping("/user")
+    @GetMapping("/user")
     public User currentUser() {
         return UserUtils.getCurrentUser();
     }

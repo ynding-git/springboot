@@ -11,6 +11,7 @@ public enum ResponseCode implements IResponseCode{
     NO_AUTH_CODE(403, "forbidden"),
     NOT_FOUND(404, "not_found"),
     SERVER_ERROR_CODE(500, "server_error"),
+    USER_AlREAD_EXIST_EXCEPTION(401,"用户已经存在"),
     DOWNGRADE(406, "downgrade");
 
     private int code;

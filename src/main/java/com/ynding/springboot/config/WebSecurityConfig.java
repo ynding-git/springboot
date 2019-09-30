@@ -1,11 +1,9 @@
 package com.ynding.springboot.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ynding.springboot.common.UserUtils;
 import com.ynding.springboot.entity.User;
 import com.ynding.springboot.o.bo.ResponseBean;
 import com.ynding.springboot.web.service.UserService;
-import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,14 +15,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;
@@ -46,6 +44,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     UrlAccessDecisionManager urlAccessDecisionManager;
     @Autowired
     AuthenticationAccessDeniedHandler deniedHandler;
+    /**
+     * token过滤器.
+     */
+    @Autowired
+    LindTokenAuthenticationFilter lindTokenAuthenticationFilter;
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     /**
      * 用户存储
@@ -59,8 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //不做拦截的路径
-        web.ignoring().antMatchers("/","index.html","/ws/**","/resources/**",
-                "static/**","/h2-console/**", "login_p", "/favicon.ico");
+        web.ignoring().antMatchers("/", "/index.html", "/ws/**", "/resources/**", "/user/**",
+                "static/**", "/h2-console/**", "/login_p", "/login", "/favicon.ico");
     }
 
     @Override
@@ -69,8 +78,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();//禁用security的csrf
 
+
         //任何请求会跳到登录界面
         http
+                // 基于token，所以不需要session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
@@ -80,14 +92,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         return o;
                     }
                 })
+                .antMatchers("/lind-auth/**","/login","/resources/**", "/index.html", "/**/register").permitAll()
+                .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login_p")//登录页
                 .loginProcessingUrl("/login")//登录提交的处理Url
-                .failureHandler(authenticationFailureHandler())
                 .successHandler(loginSuccessHandler())
+                .failureHandler(authenticationFailureHandler())
                 .permitAll()//允许所有用户都有权限访问登录页面
                 .and().logout().permitAll().logoutSuccessHandler(logoutSuccessHandler())
                 .and().exceptionHandling().accessDeniedHandler(deniedHandler)
         ;
+
+        http
+                .addFilterBefore(lindTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        http.headers().cacheControl();// 禁用缓存
 
     }
 

@@ -1,8 +1,11 @@
 package com.ynding.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.omg.CORBA.ServerRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,11 +27,12 @@ public class Menu implements Serializable {
     private String component;
     private String name;
     private String iconCls;
-    private Integer keepAlive;//不能用int，因为可以为空，用int的话，必须设置非空
+    private Integer keepAlive;
     private Integer requireAuth;
     private Integer parentId;
     private Integer enabled;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id",scope = ServerRequest.class)
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name = "menu_role",
             joinColumns = @JoinColumn(name = "mid"),

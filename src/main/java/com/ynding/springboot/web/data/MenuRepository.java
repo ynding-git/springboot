@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 @CacheConfig(cacheNames = "menus")
-public interface MenuRepository extends JpaRepository<Menu, Long>,JpaSpecificationExecutor<Book> {
+public interface MenuRepository extends JpaRepository<Menu, Long>,JpaSpecificationExecutor<Menu> {
 
      @Cacheable
      List<Menu> findAll();

@@ -1,9 +1,12 @@
 package com.ynding.springboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.omg.CORBA.ServerRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +36,8 @@ public class User implements UserDetails,Serializable {
     private String username;
     private String password;
     private String remark;
+    
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id",scope = ServerRequest.class)
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
         joinColumns = @JoinColumn(name = "userid"),
@@ -60,6 +65,9 @@ public class User implements UserDetails,Serializable {
         return username;
     }
 
+    /**
+     * 账户是否过期
+     */
     @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
@@ -68,14 +76,14 @@ public class User implements UserDetails,Serializable {
 
     @JsonIgnore
     @Override
-    public boolean isAccountNonLocked() {
-        return false;
+    public boolean isAccountNonLocked() {//账户是否锁定
+        return true;
     }
 
     @JsonIgnore
     @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
+    public boolean isCredentialsNonExpired() {//密码是否过期
+        return true;
     }
 
     @Override
