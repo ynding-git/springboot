@@ -26,6 +26,7 @@ public class RegLoginController {
     RedisTemplate<String,String> redisTemplate;
     @Autowired
     AuthenticationManager authenticationManager;
+    String tokenHead = "Bearer ";
 
     @RequestMapping("/login_p")
     public ModelAndView login(ModelAndView m) {
@@ -58,7 +59,7 @@ public class RegLoginController {
         // Reload password post-security so we can generate token
         final UserDetails userDetails = userService.loadUserByUsername(username);
         // 持久化的redis
-        String token = Md5Util.stringToMD5(userDetails.getUsername());
+        String token = tokenHead + Md5Util.stringToMD5(userDetails.getUsername());
         redisTemplate.opsForValue().set(token, userDetails.getUsername());
         return token;
     }
