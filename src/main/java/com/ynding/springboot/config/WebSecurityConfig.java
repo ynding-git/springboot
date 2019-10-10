@@ -68,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //不做拦截的路径
-        web.ignoring().antMatchers("/", "/index.html", "/ws/**", "/resources/**", "/user/**",
+        web.ignoring().antMatchers("/", "/index.html", "/ws/**", "/resources/**",
                 "static/**", "/h2-console/**", "/login_p", "/login", "/favicon.ico");
     }
 

@@ -1,6 +1,7 @@
 package com.ynding.springboot.web.controller;
 
 import com.ynding.springboot.common.utils.Md5Util;
+import com.ynding.springboot.entity.User;
 import com.ynding.springboot.o.bo.ResponseBean;
 import com.ynding.springboot.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
@@ -35,11 +34,12 @@ public class RegLoginController {
         return m;
     }
 
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public ResponseBean refreshAndGetAuthenticationToken(
-            @RequestParam("username") String username,
-            @RequestParam("password") String password) throws AuthenticationException {
+            @RequestBody User user) throws AuthenticationException {
 
+        String username = user.getUsername();
+        String password = user.getPassword();
         return ResponseBean.ok(generateToken(username, password));
     }
 
