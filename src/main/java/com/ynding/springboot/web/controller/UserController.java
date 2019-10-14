@@ -35,6 +35,16 @@ public class UserController {
         return ResponseBean.ok(users);
     }
 
+    @GetMapping("/top")
+    @ApiOperation(value = "查询前几个用户", produces = "application/json")
+    public ResponseBean findTop(@RequestParam Map<String, Object> params){
+
+        GQuery query = new GQuery(params);
+        List<User> users = userService.findTop(query);
+
+        return ResponseBean.ok(users);
+    }
+
     @GetMapping("/page")
     @ApiOperation(value = "分页查询", produces = "application/json")
     public ResponseBean pageList(@RequestParam Map<String, Object> params){

@@ -1,7 +1,9 @@
 package com.ynding.springboot.web.service;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ynding.springboot.entity.QUser;
 import com.ynding.springboot.entity.User;
 import com.ynding.springboot.o.bo.GQuery;
@@ -29,6 +31,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -66,8 +71,8 @@ public class UserService implements UserDetailsService {
      * @return
      */
     public List<User> findList(GQuery query) {
-
-        return (List<User>) userRepository.findAll(predicate(query));
+        QUser user = QUser.user;
+        return (List<User>) userRepository.findAll(predicate(query,user));
     }
 
     /**
@@ -76,19 +81,35 @@ public class UserService implements UserDetailsService {
      * @return
      */
     public Page<User> pageList(GQuery query) {
-
+        QUser user = QUser.user;
         Pageable pageable =  PageRequest.of(query.getOffset(), query.getLimit(), Sort.Direction.DESC, "id");
-        return userRepository.findAll(predicate(query),pageable);
+        return userRepository.findAll(predicate(query,user),pageable);
     }
 
+    /**
+     * 查询用户列表(取前几个)
+     * @param query
+     * @return
+     */
+    public List<User> findTop(GQuery query){
+        QUser user = QUser.user;
+        List<User> users = jpaQueryFactory
+                .selectFrom(user)
+                .where(predicate(query,user))
+                .orderBy(user.id.desc())
+                .limit(2)
+                .fetch();
+
+        return users;
+    }
 
     /**
      * 断言
      * @param query
      * @return
      */
-    private Predicate predicate(GQuery query){
-        QUser user = QUser.user;
+    private Predicate predicate(GQuery query,QUser user){
+
         //初始化组装条件(类似where 1=1)
         Predicate predicate = user.isNotNull().or(user.isNull());
         if(query.get("username") != null)
@@ -102,5 +123,41 @@ public class UserService implements UserDetailsService {
 
         return predicate;
     }
+
+    /**
+     * 根据用户名和密码查找（假定只能找出一条）
+     * @param username
+     * @param password
+     * @return
+     */
+    public User findByUsernameAndPassword(String username, String password) {
+        QUser user = QUser.user;
+        return jpaQueryFactory
+                .selectFrom(user)
+                .where(
+                        user.username.eq(username),
+                        user.password.eq(password)
+                )
+                .fetchOne();
+    }
+
+    /**
+     *分页查询所有的实体,根据id字段排序
+     *
+     * @return
+     */
+    public QueryResults<User> findAllPage(Pageable pageable) {
+
+        QUser user = QUser.user;
+        return jpaQueryFactory
+                .selectFrom(user)
+                .orderBy(
+                        user.id.asc()
+                )
+                .offset(pageable.getOffset())   //起始页
+                .limit(pageable.getPageSize())  //每页大小
+                .fetchResults();    //获取结果，该结果封装了实体集合、分页的信息，需要这些信息直接从该对象里面拿取即可
+    }
+
 
 }
