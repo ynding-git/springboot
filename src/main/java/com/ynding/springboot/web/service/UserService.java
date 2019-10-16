@@ -58,9 +58,10 @@ public class UserService implements UserDetailsService {
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encode = encoder.encode(password);
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(encode);
+        User user = User.builder()
+                .username(username)
+                .password(encode)
+                .build();
         return ResponseBean.ok(userRepository.save(user));
     }
 

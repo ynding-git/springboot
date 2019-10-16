@@ -1,4 +1,4 @@
-package com.ynding.springboot.config;
+package com.ynding.springboot.config.security;
 
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;

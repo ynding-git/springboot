@@ -1,4 +1,4 @@
-package com.ynding.springboot.config;
+package com.ynding.springboot.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ynding.springboot.entity.User;

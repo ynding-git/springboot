@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import org.omg.CORBA.ServerRequest;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
 @ApiModel(value = "User", description = "用户")
 public class User implements UserDetails,Serializable {
 

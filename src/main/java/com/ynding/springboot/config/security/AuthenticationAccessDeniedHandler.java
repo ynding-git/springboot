@@ -1,4 +1,4 @@
-package com.ynding.springboot.config;
+package com.ynding.springboot.config.security;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ynding.springboot.o.bo.ResponseBean;
