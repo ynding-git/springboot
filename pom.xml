@@ -110,6 +110,13 @@
 			<optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
 		</dependency>
 
+		<!--解决Spring Boot Configuration Annotation Processor not found in classpath -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!--tools:lombok,hutool,七牛云,Gson,fastjson-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

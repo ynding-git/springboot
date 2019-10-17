@@ -26,8 +26,9 @@ public class Swagger2Config {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
-//                .paths(PathSelectors.any())
+//                .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
+                .apis(RequestHandlerSelectors.basePackage("com.ynding.springboot.web.controller"))
+                .paths(PathSelectors.any())
                 .build()
 //                .securitySchemes(securitySchemes())
 //                .securityContexts(securityContexts())
@@ -61,6 +62,9 @@ public class Swagger2Config {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")
                 .description("springboot 接口文档")
+                .termsOfServiceUrl("termsOfServiceUrl")
+                .license("http://springfox.github.io/springfox/docs/current/")
+                .licenseUrl("http://springfox.github.io/springfox/docs/current/")
                 .version("1.0").build();
     }
 }

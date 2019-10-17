@@ -69,7 +69,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         //不做拦截的路径
         web.ignoring().antMatchers("/", "/index.html", "/ws/**", "/resources/**",
-                "static/**", "/h2-console/**", "/login_p", "/login", "/favicon.ico");
+                "static/**", "/h2-console/**", "/login_p", "/login", "/favicon.ico")
+         //加上过滤，使不经过安全认证就可访问swagger的相关资源
+        .antMatchers("/swagger-ui.html","/webjars/**","/v2/**","/swagger-resources/**");
     }
 
     @Override
@@ -77,7 +79,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         http.csrf().disable();//禁用security的csrf
-
 
         //任何请求会跳到登录界面
         http

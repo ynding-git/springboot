@@ -4,6 +4,7 @@ import com.ynding.springboot.common.utils.Md5Util;
 import com.ynding.springboot.entity.User;
 import com.ynding.springboot.o.bo.ResponseBean;
 import com.ynding.springboot.web.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
+@Api(value="RegLogin",tags={"登录注册-Controller"})
 public class RegLoginController {
-
 
     @Autowired
     UserService userService;
