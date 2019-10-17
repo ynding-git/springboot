@@ -102,4 +102,7 @@ public class WebSocketServer {
         }
     }
 
+    public static CopyOnWriteArraySet<WebSocketServer> getWebSocketSet() {
+        return webSocketSet;
+    }
 }
