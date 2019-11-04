@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 @Entity
 @Builder
 @ApiModel(value = "User", description = "用户")
-public class User implements UserDetails,Serializable {
+public class User implements UserDetails,Principal,Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -64,6 +65,11 @@ public class User implements UserDetails,Serializable {
 
     @Override
     public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public String getName(){
         return username;
     }
 

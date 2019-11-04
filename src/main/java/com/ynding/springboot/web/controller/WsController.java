@@ -23,6 +23,7 @@ public class WsController {
     public void handleChat(Principal principal, String msg) {
         String destUser = msg.substring(msg.lastIndexOf(";") + 1, msg.length());
         String message = msg.substring(0, msg.lastIndexOf(";"));
+        //发送消息给指定用户
         messagingTemplate.convertAndSendToUser(destUser, "/queue/chat", new ChatResp(message, principal.getName()));
     }
 

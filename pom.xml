@@ -36,6 +36,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<!--JWT-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-jwt</artifactId>
+			<version>RELEASE</version>
+		</dependency>
 		<!-- AOP -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
