@@ -59,7 +59,10 @@ spring:
       publisher-confirms: true
       #确认消息已发送到队列(Queue)
       publisher-returns: true
-
+  #MyFastJsonconfig配置完成后，配置一下响应码，否则返回的JSON中文会乱码
+  http:
+    encoding:
+      force-request: true
 logging:
   level:
     com.xxx: debug

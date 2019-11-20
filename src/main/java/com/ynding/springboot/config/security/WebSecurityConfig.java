@@ -80,6 +80,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();//禁用security的csrf
 
+        //带有正确token的可以过滤掉下面的认证
+        http
+                .addFilterBefore(lindTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         //任何请求会跳到登录界面
         http
                 // 基于token，所以不需要session
@@ -103,9 +107,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().logout().permitAll().logoutSuccessHandler(logoutSuccessHandler())
                 .and().exceptionHandling().accessDeniedHandler(deniedHandler)
         ;
-
-        http
-                .addFilterBefore(lindTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.headers().cacheControl();// 禁用缓存
 
