@@ -29,8 +29,8 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
         stompEndpointRegistry.addEndpoint("/ws/endpointChat")
-                .setAllowedOrigins("*")//允许跨域
-                .addInterceptors(new SessionAuthHandshakeInterceptor())//建立连接时做拦截，判断用户是否登录
+//                .setAllowedOrigins("*")//允许跨域
+//                .addInterceptors(new SessionAuthHandshakeInterceptor())//建立连接时做拦截，判断用户是否登录
                 .withSockJS();
     }
 
@@ -50,11 +50,11 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
     /**
      * 配置客户端入站通道拦截器
      */
-    @Override
+    /*@Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
         registration.interceptors(createUserInterceptor());
 
-    }
+    }*/
     /*将客户端渠道拦截器加入spring ioc容器*/
     @Bean
     public UserInterceptor createUserInterceptor() {

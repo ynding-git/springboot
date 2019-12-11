@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{/static/js/sockjs.min.js}"></script>
+<script th:src="@{/static/js/stomp.min.js}"></script>
+<script th:src="@{/static/js/jquery.min.js}"></script>
+
+<script type="text/javascript">
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/ws/endpointChat');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('开始进行连接Connected: ' + frame);
+            stompClient.subscribe('/topic/time', function (respnose) {
+                showResponse(JSON.parse(respnose.body).responseMessage);
+            });
+        });
+    }
+
+    function sendName() {
+        var name = $('#name').val();
+        stompClient.send("/app/ws/time", {}, JSON.stringify({'name': name}));//5
+    }
+
+    function showResponse(message) {
+        var response = $("#response");
+        response.html(message);
+    }
+
+</script>
+
+<body>
+<div >
+        <input type="button" onclick="connect()"><br/>
+        <label>name:</label>
+        <input type="text" id="name" name="name"/><br/>
+        <label>response:</label>
+        <div id="response" name="response"/> </div><br/>
+</div>
+</body>
+
+</html>

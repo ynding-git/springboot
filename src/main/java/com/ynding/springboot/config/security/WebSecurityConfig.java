@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -71,7 +71,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/", "/index.html", "/ws/**", "/resources/**",
                 "static/**", "/h2-console/**", "/login_p", "/login", "/favicon.ico")
          //加上过滤，使不经过安全认证就可访问swagger的相关资源
-        .antMatchers("/swagger-ui.html","/webjars/**","/v2/**","/swagger-resources/**");
+        .antMatchers("/swagger-ui.html","/webjars/**","/v2/**","/swagger-resources/**")
+        .antMatchers("/ws.html")
+        ;
     }
 
     @Override
