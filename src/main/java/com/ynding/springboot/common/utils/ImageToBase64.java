@@ -1,12 +1,13 @@
 package com.ynding.springboot.common.utils;
 
-import sun.misc.BASE64Encoder;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Base64;
 
 public class ImageToBase64 {
     /**
@@ -39,9 +40,7 @@ public class ImageToBase64 {
             e.printStackTrace();
         }
 
-        BASE64Encoder encoder = new BASE64Encoder();
-
-        return encoder.encode(data.toByteArray()).replaceAll("/r/n","");
+        return Base64.getEncoder().encodeToString(data.toByteArray()).replaceAll("/r/n","");
     }
 
 
