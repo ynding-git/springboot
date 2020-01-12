@@ -65,7 +65,7 @@ spring:
       force-request: true
 logging:
   level:
-    com.xxx: debug
+    com.ynding.springboot: debug
 
 task:
   pool:

@@ -50,11 +50,11 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
     /**
      * 配置客户端入站通道拦截器
      */
-    /*@Override
+    @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
         registration.interceptors(createUserInterceptor());
 
-    }*/
+    }
     /*将客户端渠道拦截器加入spring ioc容器*/
     @Bean
     public UserInterceptor createUserInterceptor() {

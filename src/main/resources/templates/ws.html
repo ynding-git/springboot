@@ -12,9 +12,14 @@
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             console.log('开始进行连接Connected: ' + frame);
+            stompClient.send("/app/ws/time", '1111');//5
+
             stompClient.subscribe('/topic/time', function (respnose) {
                 showResponse(JSON.parse(respnose.body).responseMessage);
             });
+
+
+
         });
     }
 
