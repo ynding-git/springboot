@@ -46,10 +46,19 @@ spring:
     favicon:
       enabled: false
   redis:
-    database: 5
+    database: 0 #共有15个，选择其中一个
     host: ${REDIS_HOST:101.37.202.3}
+    #host: ${REDIS_HOST:127.0.0.1}
     port: ${REDIS_PORT:6379}
-    password: ${REDIS_PASSWORD:}
+    password: ${REDIS_PASSWORD:123456}
+    jedis:
+      pool:
+        max-active: 100 #连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1   #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 8    #连接池中的最大空闲连接
+        min-idle: 0    #连接池中的最小空闲连
+    timeout: 5000
+
   rabbitmq:
       host: ${RABBIT_MQ_HOST:101.37.202.3}
       port: ${RABBIT_MQ_PORT:5672}

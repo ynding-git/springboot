@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 
 @SpringBootApplication
 @EnableScheduling
-//@EnableCaching
+@EnableCaching
 @EnableAsync
 @EnableConfigurationProperties({TaskThreadPoolConfig.class})
 public class SpringBootStrap {

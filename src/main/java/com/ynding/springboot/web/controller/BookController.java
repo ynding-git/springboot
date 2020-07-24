@@ -1,5 +1,6 @@
 package com.ynding.springboot.web.controller;
 
+import com.ynding.springboot.config.cache.CacheKeyGenerator;
 import com.ynding.springboot.entity.Book;
 import com.ynding.springboot.o.bo.GQuery;
 import com.ynding.springboot.o.bo.ResponseBean;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.IgnoreForbiddenApisErrors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +29,9 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class BookController {
 
+	@Autowired
+	private CacheKeyGenerator cacheKeyGenerator;
+
 	private final BookService bookService;
 
 	@Autowired
@@ -44,6 +49,7 @@ public class BookController {
 
 	@GetMapping("/list")
 	@ApiOperation(value = "查询列表", produces = "application/json")
+	@Cacheable(keyGenerator = "cacheKeyGenerator")//缓存放在controller层,有待商议// TODO
 	public ResponseBean findList(@RequestParam Map<String, Object> params){
 
 	    GQuery query = new GQuery(params);
@@ -59,6 +65,15 @@ public class BookController {
 		Page<Book> page = bookService.pageList(query);
 
 		return ResponseBean.ok(page);
+	}
+
+	@GetMapping("/findByReader")
+	@ApiOperation(value = "根据读者发现书本", produces = "application/json")
+	public ResponseBean findByReader(@RequestParam String reader){
+
+		List<Book> books = bookService.findByReader(reader);
+
+		return ResponseBean.ok(books);
 	}
 
 }

@@ -8,7 +8,7 @@ CREATE TABLE `Spitter` (
   `headPicPath` varchar(64)  COMMENT '头像路径',
   PRIMARY KEY (`id`)
 );
-alter table Spitter add constraint username unique(username);
+alter table `Spitter` add constraint username unique(`username`);
 CREATE TABLE `Spittle` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `message` varchar(300),

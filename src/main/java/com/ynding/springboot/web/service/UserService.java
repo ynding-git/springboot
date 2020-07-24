@@ -113,14 +113,18 @@ public class UserService implements UserDetailsService {
 
         //初始化组装条件(类似where 1=1)
         Predicate predicate = user.isNotNull().or(user.isNull());
-        if(query.get("username") != null)
+        if(query.get("username") != null) {
             predicate = ExpressionUtils.and(predicate,user.username.eq((String) query.get("username")));
-        if(query.get("phone") != null)
+        }
+        if(query.get("phone") != null) {
             predicate = ExpressionUtils.and(predicate,user.username.eq((String) query.get("phone")));
-        if(query.get("name") != null)
+        }
+        if(query.get("name") != null) {
             predicate = ExpressionUtils.and(predicate,user.name.like((String) query.get("name")));
-        if(query.get("address") != null)
+        }
+        if(query.get("address") != null) {
             predicate = ExpressionUtils.and(predicate,user.name.like((String) query.get("address")));
+        }
 
         return predicate;
     }

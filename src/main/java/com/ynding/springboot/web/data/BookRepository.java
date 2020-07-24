@@ -1,12 +1,16 @@
 package com.ynding.springboot.web.data;
 
+import com.ynding.springboot.config.cache.CacheKeyGenerator;
 import com.ynding.springboot.entity.Book;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.lang.Nullable;
 
 import java.util.List;
 
@@ -21,6 +25,7 @@ public interface BookRepository extends JpaRepository<Book, Long>,JpaSpecificati
 	@Cacheable(value = "books",key = "#p0")//使用函数第一个参数作为缓存的key值
 	Book findByTitle(String title);
 
+	@Override
 	@CachePut(value = "books",key = "#result.id")//每次都会调用函数
     Book save(Book book);
 

@@ -1,6 +1,5 @@
 package com.ynding.springboot.web.data;
 
-import com.ynding.springboot.entity.Book;
 import com.ynding.springboot.entity.Menu;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -12,6 +11,7 @@ import java.util.List;
 @CacheConfig(cacheNames = "menus")
 public interface MenuRepository extends JpaRepository<Menu, Long>,JpaSpecificationExecutor<Menu> {
 
+     @Override
      @Cacheable
      List<Menu> findAll();
 }

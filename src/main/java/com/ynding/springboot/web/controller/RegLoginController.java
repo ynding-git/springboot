@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@Api(value="RegLogin",tags={"登录注册-Controller"})
+@Api(value = "RegLogin", tags = {"登录注册-Controller"})
 public class RegLoginController {
 
     @Autowired
     UserService userService;
     @Autowired
-    RedisTemplate<String,String> redisTemplate;
+    RedisTemplate<String, String> redisTemplate;
     @Autowired
     AuthenticationManager authenticationManager;
     String tokenHead = "Bearer ";

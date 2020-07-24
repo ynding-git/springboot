@@ -1,9 +1,9 @@
-insert into Spitter values ('1', 'ynding', '111111', 'yanan', 'ding', '913690560@qq.com', null);
-insert into Spitter values (null, 'sj-wany', '111111', 'yan', 'wang', '913690560@qq.com', null);
-insert into Spitter values (null, 'admin', 'password', 'admin', 'admin', '913690560@qq.com', null);
-insert into Spittle values(null,'message',null,33,44);
+insert into `Spitter` values ('1', 'ynding', '111111', 'yanan', 'ding', '913690560@qq.com', null);
+insert into `Spitter` values (null, 'sj-wany', '111111', 'yan', 'wang', '913690560@qq.com', null);
+insert into `Spitter` values (null, 'admin', 'password', 'admin', 'admin', '913690560@qq.com', null);
+insert into `Spittle` values(null,'message',null,33,44);
 
-insert into t_book values('1','ynding','22','静夜思','李白','gg');
+insert into `t_book` values('1','ynding','22','静夜思','李白','gg');
 
 -- ----------------------------
 -- Records of user
@@ -73,6 +73,7 @@ INSERT INTO `menu` VALUES ('25', '/system/log/**', '/sys/log', 'SysLog', '操作
 INSERT INTO `menu` VALUES ('26', '/system/user/**', '/sys/user', 'SysHr', '操作员管理', null, null, '1', '6', '1');
 INSERT INTO `menu` VALUES ('27', '/system/data/**', '/sys/data', 'SysData', '备份恢复数据库', null, null, '1', '6', '1');
 INSERT INTO `menu` VALUES ('28', '/system/init/**', '/sys/init', 'SysInit', '初始化数据库', null, null, '1', '6', '1');
+INSERT INTO `menu` VALUES ('29', '/book/**', '/book', 'book', '书本', null, null, '1', '6', '1');
 
 -- ----------------------------
 -- Records of menu_role
@@ -99,6 +100,7 @@ INSERT INTO `menu_role` VALUES ('179', '26', '6');
 INSERT INTO `menu_role` VALUES ('180', '27', '6');
 INSERT INTO `menu_role` VALUES ('181', '28', '6');
 INSERT INTO `menu_role` VALUES ('182', '24', '6');
+INSERT INTO `menu_role` VALUES ('183', '29', '6');
 INSERT INTO `menu_role` VALUES ('247', '7', '4');
 INSERT INTO `menu_role` VALUES ('248', '8', '4');
 INSERT INTO `menu_role` VALUES ('249', '11', '4');

@@ -116,11 +116,12 @@
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 		<!-- 热部署 -->
-		<dependency>
+		<!--加上这个会导致类转型异常-->
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
-		</dependency>
+			<optional>true</optional> &lt;!&ndash; 这个需要为 true 热部署才有效 &ndash;&gt;
+		</dependency>-->
 
 		<!--解决Spring Boot Configuration Annotation Processor not found in classpath -->
 		<dependency>

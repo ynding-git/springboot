@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Long>,JpaSpecificationExecutor<Role> {
+    @Override
     @Cacheable
     List<Role> findAll();
 }

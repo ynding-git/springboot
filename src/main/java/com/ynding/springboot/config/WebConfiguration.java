@@ -42,10 +42,10 @@ public class WebConfiguration implements WebMvcConfigurer {
         return new UserTokenInterceptor();
     }
 
-    @Bean
-    public ExecutorService executorService() {
-        return Executors.newCachedThreadPool();
-    }
+//    @Bean
+//    public ExecutorService executorService() {
+//        return Executors.newCachedThreadPool();
+//    }
 
     private ArrayList<String> getIncludePathPatterns() {
         ArrayList<String> list = new ArrayList<>();

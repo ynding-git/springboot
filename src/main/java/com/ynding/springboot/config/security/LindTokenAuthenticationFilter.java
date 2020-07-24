@@ -46,8 +46,8 @@ public class LindTokenAuthenticationFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader(this.tokenHeader);
         if (authHeader != null && authHeader.startsWith(tokenHead)) {
             final String authToken = authHeader.substring(tokenHead.length()); // The part after "Bearer "
-            if (authToken != null && redisTemplate.hasKey(authToken)) {
-                String username = redisTemplate.opsForValue().get(authToken);
+            if (authToken != null && redisTemplate.hasKey(authHeader)) {
+                String username = redisTemplate.opsForValue().get(authHeader);
                 if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                     UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
                     //可以校验token和username是否有效，目前由于token对应username存在redis，都以默认都是有效的
