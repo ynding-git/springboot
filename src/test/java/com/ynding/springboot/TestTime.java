@@ -1,11 +1,10 @@
 package com.ynding.springboot;
 
-import ch.qos.logback.core.net.SocketConnector;
-import ch.qos.logback.core.net.SyslogOutputStream;
 import cn.hutool.core.date.DateUtil;
-import org.apache.catalina.startup.Catalina;
 
-import java.text.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TestTime {

@@ -30,7 +30,17 @@
 					<groupId>com.fasterxml.jackson.core</groupId>
 					<artifactId>jsckson-databind</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!--undertow-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
 		<!--websocket-->
 		<dependency>
